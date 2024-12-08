@@ -44,7 +44,7 @@ fn day_1()
 
 fn day_1_part_2()
 {
-    let data = load_data("day2.txt");
+    let data = load_data("day1.txt");
     let list1 = data.iter().map(|row| {
         row[0]
     }).collect::<Vec<i64>>();
