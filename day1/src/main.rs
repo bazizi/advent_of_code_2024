@@ -2,11 +2,11 @@ use std::collections::HashMap;
 use std::{fs, i64};
 use std::cmp::min;
 
-const FILE_NAME : &str = "day1.txt";
 
-fn load_data(file_name: &str) -> Vec::<Vec<i64>>
+fn load_data() -> Vec::<Vec<i64>>
 {
-    let file_contents = fs::read_to_string(file_name).unwrap();
+    const FILE_NAME : &str = "day1.txt";
+    let file_contents = fs::read_to_string(FILE_NAME).unwrap();
     let mut data = Vec::<Vec<i64>>::new();
     file_contents.lines().for_each(|line|{
         data.push(Vec::new());
@@ -19,7 +19,7 @@ fn load_data(file_name: &str) -> Vec::<Vec<i64>>
 
 fn day_1()
 {
-    let (mut list1, mut list2) : (Vec<i64>, Vec<i64>) = load_data(FILE_NAME).iter().map(|row| {
+    let (mut list1, mut list2) : (Vec<i64>, Vec<i64>) = load_data().iter().map(|row| {
         (row[0], row[1])
     }).unzip();
 
@@ -36,7 +36,7 @@ fn day_1()
 
 fn day_1_part_2()
 {
-    let (list1, list2) : (Vec<i64>, Vec<i64>) = load_data(FILE_NAME).iter().map(|row| {
+    let (list1, list2) : (Vec<i64>, Vec<i64>) = load_data().iter().map(|row| {
         (row[0], row[1])
     }).unzip();
 
