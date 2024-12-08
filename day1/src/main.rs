@@ -65,7 +65,7 @@ fn day_1_part_2()
         let count = list2_item_counts.get(&item).unwrap_or(&0);
         sum += item * count;
     }
-    println!("==============\n# Day 2\nanswer={}", sum);
+    println!("==============\n# Day 1.2\nanswer={}", sum);
 }
 
 
