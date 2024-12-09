@@ -12,46 +12,94 @@ fn load_data() -> Vec::<Vec<i64>>
     data
 }
 
-fn main() {
+fn is_record_safe(record: &Vec<i64>) -> bool
+{
+    let mut increasing = true;
+    for i in 0..record.len()
+    {
+        if i == 0
+        {
+            continue;
+        }
+
+        if record[i] == record[i - 1]
+        {
+            return false;
+        }
+
+        let abs_diff = record[i].abs_diff(record[i - 1]);
+        if abs_diff < 1 || abs_diff > 3
+        {
+            return false;
+        }
+
+        if i == 1
+        {
+            increasing = record[i] > record[i - 1];
+            continue;
+        }
+
+        if increasing != (record[i] > record[i - 1])
+        {
+            return false;
+        }
+    }
+
+    true
+}
+
+fn day_2_part_1()
+{
     let data = load_data();
     let mut num_safe_records = 0;
     for record in &data
     {
-        let mut increasing = true;
-        for i in 0..record.len()
+        if is_record_safe(&record)
         {
-            if i == 0
-            {
-                continue;
-            }
+            num_safe_records += 1;
+        }
+    }
+    println!("answer2.1={}", num_safe_records);
+}
 
-            if record[i] == record[i - 1]
-            {
-                break;
-            }
-            
-            let abs_diff = record[i].abs_diff(record[i - 1]);
-            if abs_diff < 1 || abs_diff > 3
-            {
-                break;
-            }
+fn day_2_part_2()
 
-            if i == 1
+{
+    let data = load_data();
+    let mut num_safe_records = 0;
+    for record in &data
+    {
+        if is_record_safe(&record)
+        {
+            num_safe_records += 1;
+        }
+        else
+        {
+            // Iterate over all combinations of 1 element removed
+            // Until we get a safe record
+            for removed_item_index in 0..record.len()
             {
-                increasing = record[i] > record[i - 1];
-                continue;
-            }
-
-            if increasing != (record[i] > record[i - 1])
-            {
-                break;
-            }
-
-            if i == record.len() - 1
-            {
-                num_safe_records += 1;
+                if is_record_safe(
+                    &record.iter().enumerate().filter_map(|(index, item)|{
+                        if index != removed_item_index 
+                        {
+                            Some(*item) 
+                        }else{
+                            None 
+                        } 
+                    }).collect())
+                {
+                    num_safe_records += 1;
+                    break;
+                }
             }
         }
     }
-    println!("answer={}", num_safe_records);
+    println!("answer2.2={}", num_safe_records);
+}
+
+fn main() {
+    day_2_part_1();
+    day_2_part_2();
+    
 }
